@@ -1,0 +1,7 @@
+marrom: 800
+vermelho: 700
+azul: 400
+amarelo: 500
+verde: 300
+laranja: 550
+

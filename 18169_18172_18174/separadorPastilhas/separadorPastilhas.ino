@@ -10,6 +10,7 @@ const int anguloHelice = 10;
 const int valor_escuro = 550;
 const int angulo_claro = 10;
 const int angulo_escuro = -(angulo_claro);
+const int branco = 10;
 const int portaSensorLuz = A0;
 int contEscuro = 0;
 int contClaro = 0;
@@ -25,19 +26,22 @@ void loop()
   servo1.write(anguloHelice);
   delay(100);
   int valorSensor = analogRead(portaSensorLuz);
-  if (valorSensor > valor_escuro)
+  if (!(valorSensor > branco - 10 && valorSensor < branco + 10))
   {
-    passo.step(angulo_escuro); //anti-horário
-    contEscuro++;
+    if (valorSensor > valor_escuro)
+    {
+      passo.step(angulo_escuro); //anti-horário
+      contEscuro++;
+    }
+    else
+    {
+      passo.step(angulo_claro); //horário
+      contClaro++;
+    }
+    bluetooth.print("");
+    bluetooth.print(contClaro);
+    bluetooth.print("|");
+    bluetooth.print(contEscuro);
   }
-  else
-  {
-    passo.step(angulo_claro); //horário
-    contClaro++;
-  }
-  bluetooth.print("");
-  bluetooth.print(contClaro);
-  bluetooth.print("|");
-  bluetooth.print(contEscuro);
   delay(900);
 }

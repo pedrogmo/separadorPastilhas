@@ -43,5 +43,6 @@ void loop()
     bluetooth.print("|");
     bluetooth.print(contEscuro);
   }
+  servo.write(0);
   delay(900);
 }

@@ -1,7 +1,7 @@
 #include <Servo.h>
 #include <SoftwareSerial.h>
 #include <Stepper.h>
-SoftwareSerial bluetooth(10,11);
+SoftwareSerial bluetooth(6,7);
 Servo servo1;
 const int stepPerRevolution = 500;
 Stepper passo(stepPerRevolution, 8, 10, 9, 11);
@@ -10,7 +10,7 @@ const int anguloHelice = 10;
 const int valor_escuro = 550;
 const int angulo_claro = 10;
 const int angulo_escuro = -(angulo_claro);
-const int branco = 10;
+const int valor_branco = 10;
 const int portaSensorLuz = A0;
 int contEscuro = 0;
 int contClaro = 0;
@@ -26,7 +26,7 @@ void loop()
   servo1.write(anguloHelice);
   delay(100);
   int valorSensor = analogRead(portaSensorLuz);
-  if (!(valorSensor > branco - 10 && valorSensor < branco + 10))
+  if (!(valorSensor > valor_branco - 10 && valorSensor < valor_branco + 10)) //inervalo oned a cor é branca
   {
     if (valorSensor > valor_escuro)
     {

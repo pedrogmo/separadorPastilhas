@@ -1,14 +1,15 @@
 #include <Servo.h>
 #include <SoftwareSerial.h>
-SoftwareSerial bluetooth;
+#include <Stepper.h>
+SoftwareSerial bluetooth(10,11);
 Servo servo1;
-Servo servo2;
+const int stepPerRevolution = 500;
+Stepper passo(stepPerRevolution, 8, 10, 9, 11);
 const int portaServo1 = 5;
-const int portaServo2 = 6;
-const int anguloHelice = ;
+const int anguloHelice = 10;
 const int valor_escuro = 550;
-const int angulo_claro = ;
-const int angulo_escuro = ;
+const int angulo_claro = 10;
+const int angulo_escuro = -(angulo_claro);
 const int portaSensorLuz = A0;
 int contEscuro = 0;
 int contClaro = 0;
@@ -16,7 +17,7 @@ int contClaro = 0;
 void setup() 
 {
   servo1.attach(portaServo1);
-  servo2.attach(portaServo2);
+  passo.setSpeed(60);
 }
 
 void loop() 
@@ -26,17 +27,17 @@ void loop()
   int valorSensor = analogRead(portaSensorLuz);
   if (valorSensor > valor_escuro)
   {
-    servo2.write(angulo_escuro);
+    passo.step(angulo_escuro); //anti-horário
     contEscuro++;
   }
   else
   {
-    servo2.write(angulo_claro);
+    passo.step(angulo_claro); //horário
     contClaro++;
   }
   bluetooth.print("");
-  bluetooth.print(contClaros);
+  bluetooth.print(contClaro);
   bluetooth.print("|");
-  bluetooth.print(contEscuros);
+  bluetooth.print(contEscuro);
   delay(900);
 }

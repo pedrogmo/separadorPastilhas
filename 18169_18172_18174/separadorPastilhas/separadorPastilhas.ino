@@ -26,7 +26,7 @@ void loop()
   servo1.write(anguloHelice);
   delay(100);
   int valorSensor = analogRead(portaSensorLuz);
-  if (!(valorSensor > valor_branco - 10 && valorSensor < valor_branco + 10)) //intervalo oned a cor é branca
+  if (!(valorSensor > valor_branco - 10 && valorSensor < valor_branco + 10)) //se não estiver no intervalo onde a cor é branca
   {
     if (valorSensor > valor_escuro)
     {

@@ -70,8 +70,9 @@ void loop()
     passo.step(-anguloHeliceTotal);
     delay(900);
   }
-  else
+  else //se foi feito um pedido para desligar
   {
+    //resetar contadores:
     contClaro = 0;
     contEscuro = 0;
   }

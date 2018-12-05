@@ -7,13 +7,14 @@
 SoftwareSerial bluetooth(6,7);
 
 //Declaração do servo
-Servo servo1;
+Servo servo;
 
 //Declaração do motor de passo
+const int stepPerRevolution = 500;
 Stepper passo(stepPerRevolution, 8, 10, 9, 11);
 
 //Constantes inteiras para funcionamento do programa, adiquiridas com base na montagem
-const int stepPerRevolution = 500;
+
 const int anguloHelice = 10;
 const int valor_escuro = 550;
 const int angulo_claro = 0;
@@ -32,7 +33,7 @@ int contClaro = 0;
 
 void setup() 
 {
-  servo1.attach(portaServo1); //ativação do servo
+  servo.attach(portaServo1); //ativação do servo
   passo.setSpeed(60); //ativação do motor de passo
 }
 

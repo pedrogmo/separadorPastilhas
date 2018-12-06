@@ -20,28 +20,22 @@ const int valor_escuro = 700;
 const int angulo_claro =  40;
 const int angulo_escuro = 140;
 
-//Porta analógica do sensor de luz
-const int portaSensorLuz = A0;
-
-//Porta do servo motor
-const int portaServo1 = 5;
-
 //Contadores de pastilhas claras e escuras
 int contEscuro = 0;
 int contClaro = 0;
 
 void setup() 
 {
-  servo.attach(portaServo1); //ativação do servo
-  passo.setSpeed(45); //ativação do motor de passo
+  servo.attach(5); //ativação do servo
+  passo.setSpeed(60); //ativação do motor de passo
   servo.write(90);
 }
 
-void loop() 
+void loop()                
 {  
   passo.step(anguloHelice1); //motor passo gira para pegar um mm só e ler o seu valor
   delay(1000); 
-  int valorSensor = analogRead(portaSensorLuz); //valor que o sensor de luz retorn
+  int valorSensor = analogRead(A0); //valor que o sensor de luz retorn
   delay(500);
   if (valorSensor > 600 && valorSensor < 800) //se estiver no intervalo em que há mm
   {

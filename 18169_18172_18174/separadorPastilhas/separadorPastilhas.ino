@@ -10,17 +10,15 @@ SoftwareSerial bluetooth(6,7);
 Servo servo;
 
 //Declaração do motor de passo
-const int stepPerRevolution = 500;
-Stepper passo(stepPerRevolution, 8, 10, 9, 11);
+Stepper passo(500, 8, 10, 9, 11);
 
 //Constantes inteiras para funcionamento do programa, adiquiridas com base na montagem
 
-const int anguloHelice1 = 10;
-const int anguloHelice2 = 10;
-const int valor_escuro = 550;
-const int angulo_claro = 0;
-const int angulo_escuro = 0;
-const int valor_branco = 10;
+const int anguloHelice1 = 300;
+const int anguloHelice2 = 212;
+const int valor_escuro = 700;
+const int angulo_claro =  40;
+const int angulo_escuro = 140;
 
 //Porta analógica do sensor de luz
 const int portaSensorLuz = A0;
@@ -35,45 +33,45 @@ int contClaro = 0;
 void setup() 
 {
   servo.attach(portaServo1); //ativação do servo
-  passo.setSpeed(60); //ativação do motor de passo
+  passo.setSpeed(45); //ativação do motor de passo
+  servo.write(90);
 }
 
 void loop() 
-{
-  if (bluetooth.read() == 'L') //Se for para ligar
+{  
+  passo.step(anguloHelice1); //motor passo gira para pegar um mm só e ler o seu valor
+  delay(1000); 
+  int valorSensor = analogRead(portaSensorLuz); //valor que o sensor de luz retorn
+  delay(500);
+  if (valorSensor > 600 && valorSensor < 800) //se estiver no intervalo em que há mm
   {
-    passo.step(anguloHelice1); //motor passo gira para pegar um mm só e ler o seu valor
-    delay(100); 
-    int valorSensor = analogRead(portaSensorLuz); //valor que o sensor de luz retorna
-    passo.step(anguloHelice2); //motor passo gira para cair um mm na rampa
-    if (!(valorSensor > valor_branco - 10 && valorSensor < valor_branco + 10)) //se não estiver no intervalo onde a cor é branca
+    if (valorSensor > valor_escuro) //se for escuro
     {
-      if (valorSensor > valor_escuro) //se for escuro
-      {
-        servo.write(angulo_escuro); //servo gira anti-horário, ângulo escuro
-        contEscuro++; //contEscuro aumenta
-      }
-      else //mm claro
-      {
-        servo.write(angulo_claro); //servo gira horário, ângulo claro
-        contClaro++; //contClaro aumenta
-      }
-      //Aqui são printados os valores dos contadores pelo bluetooth
-      bluetooth.print("");
-      bluetooth.print(contClaro);
-      bluetooth.print("|");
-      bluetooth.print(contEscuro);
+      servo.write(angulo_escuro); //servo gira anti-horário, ângulo escuro
+      contEscuro++; //contEscuro aumenta
     }
-    //servo e motor de passo voltam à posição original
-    servo.write(0);
+    else //mm claro
+    {
+      servo.write(angulo_claro); //servo gira horário, ângulo claro
+      contClaro++; //contClaro aumenta
+    }
+    //Aqui são printados os valores dos contadores pelo bluetooth
+    bluetooth.print("");
+    bluetooth.print(contClaro);
+    bluetooth.print("|");
+    bluetooth.print(contEscuro);
+    delay(500);
+    passo.step(anguloHelice2); //motor passo gira para cair um mm na rampa      
+    delay(100);
     int anguloHeliceTotal = anguloHelice1 + anguloHelice2;
     passo.step(-anguloHeliceTotal);
-    delay(900);
   }
-  else //se foi feito um pedido para desligar
+  else //se não foi colocado mm
+
   {
-    //resetar contadores:
-    contClaro = 0;
-    contEscuro = 0;
+    passo.step(-anguloHelice1); //passo volta à posição original
   }
+  //servo e motor de passo voltam à posição original
+  servo.write(90);
+  delay(900);
 }

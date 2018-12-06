@@ -29,5 +29,7 @@ void loop() {
     Serial.println(menorValor);
     meuCont = 0;
     somatoria = 0;
+    maiorValor = 0;
+    menorValor = 0;
   }
 }

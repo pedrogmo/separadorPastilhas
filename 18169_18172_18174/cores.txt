@@ -1,14 +1,6 @@
-Escuro -
-marrom: 800
-vermelho: 700
-laranja: 550
-
-Claro - 
-
-amarelo: 500
-azul: 400
-verde: 300
-
-
-
-
+Amarelo
+Vermelho
+Azul: 567
+Verde
+Marrom
+Laranja

@@ -10,7 +10,7 @@ int meuCont = 0;
 
 void loop() {
   // put your main code here, to run repeatedly:
-  delay(200);
+  delay(100);
   int valorSensor = analogRead(A0);
   meuCont++;
   Serial.print("|");
@@ -28,5 +28,6 @@ void loop() {
     Serial.print("Menor valor: ");
     Serial.println(menorValor);
     meuCont = 0;
+    somatoria = 0;
   }
 }

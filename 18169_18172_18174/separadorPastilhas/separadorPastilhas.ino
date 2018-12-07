@@ -14,13 +14,13 @@ Stepper passo(500, 8, 10, 9, 11);
 
 //Constantes inteiras para funcionamento do programa, adiquiridas com base na montagem
 
-const int anguloPasso1 = -500;
+const int anguloPasso1 = -550;
 const int anguloPasso2 = -600;
 
 const int angulo_claro =  40;
 const int angulo_escuro = 140;
 
-const int valor_escuro = 580;
+const int valor_escuro = 495;
 const int valor_papelao = 390;
 
 //Contadores de pastilhas claras e escuras
@@ -39,12 +39,12 @@ void loop()
 {  
   passo.step(anguloPasso1); //motor passo gira para pegar um mm só e ler o seu valor
   delay(1000); 
-  int valorSensor = analogRead(A0); //valor que o sensor de luz retorn
+  int valorSensor = analogRead(A0); //valor que o sensor de luz retorna
   if (valorSensor > valor_papelao) //se tiver um mm posicionado
   {
-    if (valorSensor > valor_escuro) //se for escuro
+    if (valorSensor < valor_escuro) //se for escuro
     {
-      servo.write(angulo_escuro); //servo gira anti-horário, ângulo escuro
+      servo.write(angulo_escuro); //servo gira anti- horário, ângulo escuro
       contEscuro++; //contEscuro aumenta
     }
     else //mm claro

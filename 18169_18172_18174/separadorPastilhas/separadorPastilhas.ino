@@ -29,6 +29,7 @@ int contClaro = 0;
 
 void setup() 
 {
+  bluetooth.begin(9600);
   servo.attach(5); //ativação do servo
   passo.setSpeed(60); //ativação do motor de passo
   servo.write(90);

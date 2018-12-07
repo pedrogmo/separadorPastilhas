@@ -1,6 +1,6 @@
 int somatoria = 0;
 int maiorValor = 0;
-int menorValor = 0;
+int menorValor = 2000;
 int meuCont = 0;
  
  void setup() {
@@ -30,6 +30,6 @@ void loop() {
     meuCont = 0;
     somatoria = 0;
     maiorValor = 0;
-    menorValor = 0;
+    menorValor = 2000;
   }
 }

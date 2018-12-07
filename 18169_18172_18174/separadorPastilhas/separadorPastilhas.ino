@@ -14,11 +14,14 @@ Stepper passo(500, 8, 10, 9, 11);
 
 //Constantes inteiras para funcionamento do programa, adiquiridas com base na montagem
 
-const int anguloPasso1 = -512;
-const int anguloPasso2 = -200;
-const int valor_escuro = 700;
+const int anguloPasso1 = -500;
+const int anguloPasso2 = -600;
+
 const int angulo_claro =  40;
 const int angulo_escuro = 140;
+
+const int valor_escuro = 580;
+const int valor_papelao = 390;
 
 //Contadores de pastilhas claras e escuras
 int contEscuro = 0;
@@ -34,10 +37,9 @@ void setup()
 void loop()                
 {  
   passo.step(anguloPasso1); //motor passo gira para pegar um mm só e ler o seu valor
-  delay(500); 
+  delay(1000); 
   int valorSensor = analogRead(A0); //valor que o sensor de luz retorn
-  delay(500);
-  if (valorSensor > 600 && valorSensor < 800) //se estiver no intervalo em que há mm
+  if (valorSensor > valor_papelao) //se tiver um mm posicionado
   {
     if (valorSensor > valor_escuro) //se for escuro
     {
@@ -54,11 +56,11 @@ void loop()
     bluetooth.print(contClaro);
     bluetooth.print("|");
     bluetooth.print(contEscuro);
-    delay(500);
+    delay(200);
     passo.step(anguloPasso2); //motor passo gira para cair um mm na rampa      
-    delay(500);
+    delay(1000);
     int anguloPassoTotal = anguloPasso1 + anguloPasso2;
-    passo.step(-anguloPassoTotal);
+    passo.step(-anguloPassoTotal);    
   }
   else //se não foi colocado mm
   {
@@ -66,5 +68,5 @@ void loop()
   }
   //servo e motor de passo voltam à posição original
   servo.write(90);
-  delay(900);
+  delay(500);
 }

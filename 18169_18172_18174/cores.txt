@@ -1,6 +1,6 @@
-Amarelo
-Vermelho
-Azul: 567
-Verde
-Marrom
-Laranja
+Amarelo  : 428
+Vermelho : 516
+Azul     : 559
+Verde    : 594
+Marrom   : 592
+Laranja  : 525
